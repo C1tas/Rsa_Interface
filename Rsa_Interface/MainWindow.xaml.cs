@@ -93,7 +93,7 @@ namespace Rsa_Interface
         {
             
             InitializeComponent();
-            RS_Buffer.result_buffer.Text = strShp.ToString();
+            
         }
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -110,6 +110,7 @@ namespace Rsa_Interface
 
         private void show_RS_Buffer_button_Click(object sender, RoutedEventArgs e)
         {
+            RS_Buffer.result_buffer.Text = strShp.ToString();
             RS_Buffer.Show();
         }
 
