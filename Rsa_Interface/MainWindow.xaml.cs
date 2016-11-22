@@ -46,24 +46,6 @@ namespace Rsa_Interface
 
         StringBuilder strShp = new StringBuilder(20480);
         Result_Buffer RS_Buffer = new Result_Buffer();
-
-        public MainWindow()
-        {
-            initialize();
-            InitializeComponent();
-            RS_Buffer.result_buffer.Text = strShp.ToString();
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {                       
-            RS_Buffer.Show();
-        }
-
-        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         public void initialize()
         {
             while (true)
@@ -85,6 +67,8 @@ namespace Rsa_Interface
                 {
                     //Console.WriteLine("The result of GCD(fain, 17) == 1.");
                     System.Int64 d = ext_gcd(17, fain);
+                    this.public_key.Text = "(" + fain.ToString() + "," + "17" + ")";
+                    this.private_key.Text = "(" + fain.ToString() + "," + d.ToString() + ")";
                     //Console.WriteLine("The num n is " + n.ToString());
 
                     //Console.WriteLine("The key d is " + d.ToString());
@@ -105,10 +89,38 @@ namespace Rsa_Interface
             //Console.Write(strShp);
 
         }
+        public MainWindow()
+        {
+            
+            InitializeComponent();
+            RS_Buffer.result_buffer.Text = strShp.ToString();
+        }
+
+        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void show_RS_Buffer_button_Click(object sender, RoutedEventArgs e)
+        {
+            RS_Buffer.Show();
+        }
+
+        private void sign_button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void generate_key_button_Click(object sender, RoutedEventArgs e)
+        {
+            initialize();
         }
     }
 
