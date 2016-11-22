@@ -17,12 +17,13 @@
                     <ColumnDefinition Width="383*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="label" Grid.ColumnSpan="2" Content="请在下方输入你需要签名的内容" HorizontalAlignment="Left" Height="30" Margin="22,54,0,0" VerticalAlignment="Top" Width="190"/>
-                <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="261" Grid.ColumnSpan="2" Margin="22,89,0,0"/>
+                <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Input here" VerticalAlignment="Top" Width="261" Grid.ColumnSpan="2" Margin="22,89,0,0" TextChanged="textBox_TextChanged"/>
                 <Button x:Name="button" Content="签名" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="225,203,0,0" Grid.Column="1" Click="button_Click"/>
-                <Label x:Name="label_Copy" Grid.ColumnSpan="2" Content="生成的公钥" HorizontalAlignment="Left" Height="30" Margin="22,133,0,0" VerticalAlignment="Top" Width="190"/>
-                <Label x:Name="label_Copy1" Grid.ColumnSpan="2" Content="生成的私钥" HorizontalAlignment="Left" Height="30" Margin="22,203,0,0" VerticalAlignment="Top" Width="190"/>
+                <Label x:Name="label_Copy" Grid.ColumnSpan="2" Content="生成的公钥:" HorizontalAlignment="Left" Height="30" Margin="22,133,0,0" VerticalAlignment="Top" Width="190"/>
+                <Label x:Name="label_Copy1" Grid.ColumnSpan="2" Content="生成的私钥:" HorizontalAlignment="Left" Height="30" Margin="22,203,0,0" VerticalAlignment="Top" Width="190"/>
                 <TextBlock x:Name="textBlock" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="29" Margin="46,163,0,0" TextWrapping="Wrap" Text="等待输入签名内容" VerticalAlignment="Top" Width="166"/>
                 <TextBlock x:Name="textBlock_Copy" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="29" Margin="46,238,0,0" TextWrapping="Wrap" Text="等待输入签名内容" VerticalAlignment="Top" Width="166"/>
+                <Button x:Name="button_Copy" Content="显示生成过程" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="225,158,0,0" Grid.Column="1" Click="button_Click"/>
             </Grid>
 
         </TabItem>
