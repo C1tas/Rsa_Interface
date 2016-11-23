@@ -16,27 +16,33 @@
                     <ColumnDefinition Width="134*"/>
                     <ColumnDefinition Width="383*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="label" Grid.ColumnSpan="2" Content="请在下方输入你需要签名的内容" HorizontalAlignment="Left" Height="30" Margin="22,54,0,0" VerticalAlignment="Top" Width="190"/>
-                <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Input here" VerticalAlignment="Top" Width="261" Grid.ColumnSpan="2" Margin="22,89,0,0" TextChanged="textBox_TextChanged"/>
+                <Label x:Name="label" Grid.ColumnSpan="2" Content="请在下方输入你需要签名的内容" HorizontalAlignment="Left" Height="30" Margin="22,10,0,0" VerticalAlignment="Top" Width="190"/>
+                <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Input here" VerticalAlignment="Top" Width="261" Grid.ColumnSpan="2" Margin="22,45,0,0" TextChanged="textBox_TextChanged"/>
                 <Button x:Name="sign" Content="签名" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="225,203,0,0" Grid.Column="1" Click="sign_button_Click"/>
-                <Label x:Name="label_Copy" Grid.ColumnSpan="2" Content="生成的公钥:" HorizontalAlignment="Left" Height="30" Margin="22,133,0,0" VerticalAlignment="Top" Width="190"/>
-                <Label x:Name="label_Copy1" Grid.ColumnSpan="2" Content="生成的私钥:" HorizontalAlignment="Left" Height="30" Margin="22,203,0,0" VerticalAlignment="Top" Width="190"/>
-                <TextBlock x:Name="public_key" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="29" Margin="46,163,0,0" TextWrapping="Wrap" Text="等待输入签名内容" VerticalAlignment="Top" Width="166"/>
-                <TextBlock x:Name="private_key" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="29" Margin="46,238,0,0" TextWrapping="Wrap" Text="等待输入签名内容" VerticalAlignment="Top" Width="166"/>
+                <Label x:Name="label_Copy" Grid.ColumnSpan="2" Content="生成的公钥:" HorizontalAlignment="Left" Height="30" Margin="22,71,0,0" VerticalAlignment="Top" Width="190"/>
+                <Label x:Name="label_Copy1" Grid.ColumnSpan="2" Content="生成的私钥:" HorizontalAlignment="Left" Height="30" Margin="22,125,0,0" VerticalAlignment="Top" Width="190"/>
+                <TextBlock x:Name="public_key" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="29" Margin="46,101,0,0" TextWrapping="Wrap" Text="等待输入签名内容" VerticalAlignment="Top" Width="166"/>
+                <TextBlock x:Name="private_key" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="29" Margin="46,165,0,0" TextWrapping="Wrap" Text="等待输入签名内容" VerticalAlignment="Top" Width="166"/>
                 <Button x:Name="show_RS_Buffer" Content="显示生成过程" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="225,158,0,0" Grid.Column="1" Click="show_RS_Buffer_button_Click"/>
                 <Button x:Name="generate_key" Content="生成公私钥" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="225,116,0,0" Grid.Column="1" Click="generate_key_button_Click"/>
+                <Label x:Name="digital_signature" Grid.ColumnSpan="2" Content="数字签名:" HorizontalAlignment="Left" Height="30" Margin="22,194,0,0" VerticalAlignment="Top" Width="190"/>
+                <TextBlock x:Name="signature_value" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="29" Margin="46,224,0,0" TextWrapping="Wrap" Text="请等待签名完成" VerticalAlignment="Top" Width="166"/>
             </Grid>
 
         </TabItem>
         <TabItem Header="验证">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="31*"/>
-                    <ColumnDefinition Width="101*"/>
-                    <ColumnDefinition Width="376*"/>
+                    <ColumnDefinition Width="22*"/>
+                    <ColumnDefinition Width="486*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="label2" Grid.ColumnSpan="3" Content="请在下方输入你需要签名的内容" HorizontalAlignment="Left" Height="30" Margin="22,54,0,0" VerticalAlignment="Top" Width="190"/>
+                <Label x:Name="verify_label" Content="请在下方输入你获得的签名" HorizontalAlignment="Left" Height="30" Margin="22,10,0,0" VerticalAlignment="Top" Width="190" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="signature_verify" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Input here" VerticalAlignment="Top" Width="261" Grid.ColumnSpan="2" Margin="22,45,0,0" TextChanged="textBox_TextChanged"/>
+                <Label x:Name="verify_label_Copy" Content="请在下方输入你获得的内容" HorizontalAlignment="Left" Height="30" Margin="22,76,0,0" VerticalAlignment="Top" Width="190" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="content_verify" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Input here" VerticalAlignment="Top" Width="261" Margin="0.6,111,0,0" TextChanged="textBox_TextChanged" Grid.Column="1"/>
+                <Button x:Name="sign_Copy" Content="验证" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="334.6,203,0,0" Grid.Column="1" Click="sign_button_Click"/>
+                <TextBlock x:Name="signature_value_Copy" HorizontalAlignment="Left" Height="29" Margin="23.6,203,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="166" Grid.Column="1"><Run Text="请等待"/><Run Text="验证"/><Run Text="完成"/></TextBlock>
 
             </Grid>
         </TabItem>

@@ -77,6 +77,7 @@ namespace Rsa_Interface
 
                     //Console.WriteLine("The key d is " + d.ToString());
                     System.Int64 cipertext = encode(32655, 17, n);
+                    this.signature_value.Text = cipertext.ToString();
                     //Console.WriteLine("The cleartext is 32655, and the corresponding cipertext is " + cipertext.ToString());
                     System.Int64 cleartext = decode(cipertext, d, n);
                     //Console.WriteLine("The cipertext is "+ cipertext.ToString() + " and the corresponding cleartext is " + cleartext.ToString() + ".");
