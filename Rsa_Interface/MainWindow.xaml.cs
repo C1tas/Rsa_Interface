@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 
 using System.Runtime.InteropServices;
 using System.Diagnostics;
@@ -46,7 +47,8 @@ namespace Rsa_Interface
 
         StringBuilder strShp = new StringBuilder(20480);
         Result_Buffer RS_Buffer = new Result_Buffer();
-        public void initialize()
+        Int64 d, n, fain;
+        public void initialize(Int64 sign_content)
         {
             while (true)
             {
@@ -60,26 +62,26 @@ namespace Rsa_Interface
                 System.Int64 prime_1 = 1259;
                 System.Int64 prime_2 = 80897;
                 */
-                System.Int64 n = prime_1 * prime_2;
+                n = prime_1 * prime_2;
 
-                System.Int64 fain = (prime_1 - 1) * (prime_2 - 1);
+                fain = (prime_1 - 1) * (prime_2 - 1);
                 //Console.WriteLine("The result of Euler function is " + fain.ToString());
                 if (GCD(17, fain) == 1)
                 {
                     //Console.WriteLine("The result of GCD(fain, 17) == 1.");
-                    System.Int64 d = ext_gcd(17, fain);
-                    //this.public_key.Text = "(" + fain.ToString() + "," + "17" + ")";
-                    //this.private_key.Text = "(" + fain.ToString() + "," + d.ToString() + ")";
-                    this.public_key.Text = fain.ToString();
-                    this.private_key.Text = d.ToString();
+                    d = ext_gcd(17, fain);
+                    this.public_key.Text = "(" + fain.ToString() + "," + "17" + ")";
+                    this.private_key.Text = "(" + fain.ToString() + "," + d.ToString() + ")";
+                    //this.public_key.Text = fain.ToString();
+                    //this.private_key.Text = d.ToString();
                     //this.private_key.Text = "123";
                     //Console.WriteLine("The num n is " + n.ToString());
 
                     //Console.WriteLine("The key d is " + d.ToString());
-                    System.Int64 cipertext = encode(32655, 17, n);
+                    System.Int64 cipertext = encode(sign_content, 17, n);
                     this.signature_value.Text = cipertext.ToString();
                     //Console.WriteLine("The cleartext is 32655, and the corresponding cipertext is " + cipertext.ToString());
-                    System.Int64 cleartext = decode(cipertext, d, n);
+                    
                     //Console.WriteLine("The cipertext is "+ cipertext.ToString() + " and the corresponding cleartext is " + cleartext.ToString() + ".");
                     break;
                 }
@@ -107,12 +109,6 @@ namespace Rsa_Interface
         }
 
 
-
-        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
         private void show_RS_Buffer_button_Click(object sender, RoutedEventArgs e)
         {
             RS_Buffer.result_buffer.Text = strShp.ToString();
@@ -126,7 +122,39 @@ namespace Rsa_Interface
 
         private void generate_key_button_Click(object sender, RoutedEventArgs e)
         {
-            initialize();
+            Int64 content;
+            if (Int64.TryParse(sign_content.Text, out content) == false)
+            {
+                this.ShowMessageAsync("Error~", "输入不是符合要求的数字,请输入范围在2^64以内");
+                //MessageBox.Show("输入不是符合要求的数字请输入范围在2^64以内");
+            }
+            else
+            {
+                initialize(content);
+            }
+        }
+
+        private void Main_windows_close(object sender, EventArgs e)
+        {
+            System.Environment.Exit(0);
+
+        }
+
+        private void verify_button_Click(object sender, RoutedEventArgs e)
+        {
+            Int64 signature, content;
+            if (Int64.TryParse(signature_verify.Text, out signature) == false || Int64.TryParse(content_verify.Text, out content) == false)
+            {
+                this.ShowMessageAsync("Error~", "输入不是符合要求的数字,请输入范围在2^64以内");
+                //MessageBox.Show("你输入的值，非符合要求的数值，数值范围2^64");
+            }
+            else
+            {
+                System.Int64 cleartext = decode(signature, d, n);
+                if (cleartext == content)
+                verify_result.Text = "成功";
+            }
+            
         }
     }
 
