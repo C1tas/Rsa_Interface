@@ -10,7 +10,7 @@
 
 
     <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="320" VerticalAlignment="Top" Width="515" SelectionChanged="tabControl_SelectionChanged" Margin="0,0,0,-1">
-        <TabItem Header="签名">
+        <TabItem Header="签名" Margin="0,0,-0.4,-0.4">
             <Grid x:Name="close">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="134*"/>
@@ -27,6 +27,7 @@
                 <Button x:Name="generate_key" Content="生成公私钥" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="225,116,0,0" Grid.Column="1" Click="generate_key_button_Click"/>
                 <Label x:Name="digital_signature" Grid.ColumnSpan="2" Content="数字签名:" HorizontalAlignment="Left" Height="30" Margin="22,194,0,0" VerticalAlignment="Top" Width="190"/>
                 <TextBlock x:Name="signature_value" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="29" Margin="46,224,0,0" TextWrapping="Wrap" Text="请等待签名完成" VerticalAlignment="Top" Width="166"/>
+                <Button x:Name="send_to_verify" Content="发送到验证" Grid.Column="1" HorizontalAlignment="Left" Margin="85,224,0,0" VerticalAlignment="Top" Width="59" Height="23" Click="send_to_verify_Click"/>
             </Grid>
 
         </TabItem>

@@ -50,11 +50,13 @@ namespace Rsa_Interface
         Int64 d, n, fain;
         public void initialize(Int64 sign_content)
         {
+            Int64 prime_1;
+            Int64 prime_2;
             while (true)
             {
                 strShp.Clear();
-                System.Int64 prime_1 = random_prime(1024, 2048);
-                System.Int64 prime_2 = random_prime(65536, 131072);
+                prime_1 = random_prime(1024, 2048);
+                prime_2 = random_prime(65536, 131072);
 
                 //Console.WriteLine("The random_prime_1 is " + prime_1.ToString());
                 //Console.WriteLine("The random_prime_2 is " + prime_2.ToString());
@@ -63,7 +65,7 @@ namespace Rsa_Interface
                 System.Int64 prime_2 = 80897;
                 */
                 n = prime_1 * prime_2;
-
+                
                 fain = (prime_1 - 1) * (prime_2 - 1);
                 //Console.WriteLine("The result of Euler function is " + fain.ToString());
                 if (GCD(17, fain) == 1)
@@ -78,8 +80,7 @@ namespace Rsa_Interface
                     //Console.WriteLine("The num n is " + n.ToString());
 
                     //Console.WriteLine("The key d is " + d.ToString());
-                    System.Int64 cipertext = encode(sign_content, 17, n);
-                    this.signature_value.Text = cipertext.ToString();
+                    
                     //Console.WriteLine("The cleartext is 32655, and the corresponding cipertext is " + cipertext.ToString());
                     
                     //Console.WriteLine("The cipertext is "+ cipertext.ToString() + " and the corresponding cleartext is " + cleartext.ToString() + ".");
@@ -91,7 +92,10 @@ namespace Rsa_Interface
             //StringBuilder strShp = new StringBuilder(20480);
 
             return_string(strShp);
-
+            StringBuilder prime1_Shp = new StringBuilder("The random_prime_1 is " + prime_1.ToString() + ".\n");
+            StringBuilder prime2_Shp = new StringBuilder("The random_prime_2 is " + prime_2.ToString() + ".\n");
+            strShp.Append(prime1_Shp);
+            strShp.Append(prime2_Shp);
             //ConsoleManager.Show();
             //Console.Write(strShp);
 
@@ -117,7 +121,17 @@ namespace Rsa_Interface
 
         private void sign_button_Click(object sender, RoutedEventArgs e)
         {
-
+            Int64 content;
+            if (Int64.TryParse(sign_content.Text, out content) == false)
+            {
+                this.ShowMessageAsync("Error~", "没有输入，或者输入不是符合要求的数字,请输入范围在2^64以内");
+                //MessageBox.Show("输入不是符合要求的数字请输入范围在2^64以内");
+            }
+            else
+            {
+                System.Int64 cipertext = encode(content, 17, n);
+                this.signature_value.Text = cipertext.ToString();
+            }
         }
 
         private void generate_key_button_Click(object sender, RoutedEventArgs e)
@@ -125,13 +139,29 @@ namespace Rsa_Interface
             Int64 content;
             if (Int64.TryParse(sign_content.Text, out content) == false)
             {
-                this.ShowMessageAsync("Error~", "输入不是符合要求的数字,请输入范围在2^64以内");
+                this.ShowMessageAsync("Error~", "没有输入，或者输入不是符合要求的数字,请输入范围在2^64以内");
                 //MessageBox.Show("输入不是符合要求的数字请输入范围在2^64以内");
             }
             else
             {
                 initialize(content);
             }
+        }
+
+        private void send_to_verify_Click(object sender, RoutedEventArgs e)
+        {
+            Int64 signature, content;
+            if (Int64.TryParse(signature_value.Text, out signature) == false || Int64.TryParse(sign_content.Text, out content) == false)
+            {
+                this.ShowMessageAsync("Error~", "请在完成签名后使用此功能~");
+                //MessageBox.Show("你输入的值，非符合要求的数值，数值范围2^64");
+            }
+            else
+            {
+                signature_verify.Text = signature_value.Text;
+                content_verify.Text = sign_content.Text;
+            }
+            
         }
 
         private void Main_windows_close(object sender, EventArgs e)
@@ -145,14 +175,16 @@ namespace Rsa_Interface
             Int64 signature, content;
             if (Int64.TryParse(signature_verify.Text, out signature) == false || Int64.TryParse(content_verify.Text, out content) == false)
             {
-                this.ShowMessageAsync("Error~", "输入不是符合要求的数字,请输入范围在2^64以内");
+                this.ShowMessageAsync("Error~", "没有输入或者，输入不是符合要求的数字,请输入范围在2^64以内");
                 //MessageBox.Show("你输入的值，非符合要求的数值，数值范围2^64");
             }
             else
             {
                 System.Int64 cleartext = decode(signature, d, n);
                 if (cleartext == content)
-                verify_result.Text = "成功";
+                    verify_result.Text = "成功";
+                else
+                    verify_result.Text = "错误的签名";
             }
             
         }
