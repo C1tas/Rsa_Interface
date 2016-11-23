@@ -50,6 +50,7 @@ namespace Rsa_Interface
         {
             while (true)
             {
+                strShp.Clear();
                 System.Int64 prime_1 = random_prime(1024, 2048);
                 System.Int64 prime_2 = random_prime(65536, 131072);
 
@@ -67,8 +68,11 @@ namespace Rsa_Interface
                 {
                     //Console.WriteLine("The result of GCD(fain, 17) == 1.");
                     System.Int64 d = ext_gcd(17, fain);
-                    this.public_key.Text = "(" + fain.ToString() + "," + "17" + ")";
-                    this.private_key.Text = "(" + fain.ToString() + "," + d.ToString() + ")";
+                    //this.public_key.Text = "(" + fain.ToString() + "," + "17" + ")";
+                    //this.private_key.Text = "(" + fain.ToString() + "," + d.ToString() + ")";
+                    this.public_key.Text = fain.ToString();
+                    this.private_key.Text = d.ToString();
+                    //this.private_key.Text = "123";
                     //Console.WriteLine("The num n is " + n.ToString());
 
                     //Console.WriteLine("The key d is " + d.ToString());
