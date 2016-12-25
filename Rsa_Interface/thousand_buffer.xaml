@@ -1,4 +1,4 @@
-﻿<Controls:MetroWindow x:Class="Rsa_Interface.Result_Buffer"
+﻿<Controls:MetroWindow x:Class="Rsa_Interface.thousand_buffer"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,9 +7,9 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
         Closing="MetroWindow_Closing"
-        Title="Result_Buffer" Height="600" Width="400">
+        Title="thousand_buffer" Height="600" Width="400">
     <Grid>
-        <TextBox x:Name="result_buffer" HorizontalAlignment="Left" Height="549" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372"
-                 VerticalScrollBarVisibility="Auto" TextChanged="result_buffer_TextChanged" Margin="10,10,0,0"/>
+        <TextBox x:Name="show_buffer" HorizontalAlignment="Left" Height="549" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="372"/>
+
     </Grid>
 </Controls:MetroWindow>

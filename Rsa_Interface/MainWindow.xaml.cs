@@ -43,68 +43,76 @@ namespace Rsa_Interface
         extern static System.Int64 decode(System.Int64 m, System.Int64 e, System.Int64 modulus);
 
         [DllImport("Rsa_DLL.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-        extern static int return_string(StringBuilder tmp_str);
+        extern static int return_string(StringBuilder tmp_str, StringBuilder tmp2_str, StringBuilder tmp3_str);
 
         StringBuilder strShp = new StringBuilder(20480);
+        StringBuilder ts_result = new StringBuilder(20480);
+        StringBuilder mr_result = new StringBuilder(20480);
         Result_Buffer RS_Buffer = new Result_Buffer();
+        process_buffer pc_buffer = new process_buffer();
+        
+        miller_rabin_buffer mr_buffer = new miller_rabin_buffer();
+        thousand_buffer ts_buffer = new thousand_buffer();
+        Int64 prime_1;
+        Int64 prime_2;
         Int64 d, n, fain;
         public void initialize(Int64 sign_content)
         {
-            Int64 prime_1;
-            Int64 prime_2;
+            
             while (true)
             {
                 strShp.Clear();
                 prime_1 = random_prime(1024, 2048);
                 prime_2 = random_prime(65536, 131072);
 
-                //Console.WriteLine("The random_prime_1 is " + prime_1.ToString());
-                //Console.WriteLine("The random_prime_2 is " + prime_2.ToString());
-                /*
-                System.Int64 prime_1 = 1259;
-                System.Int64 prime_2 = 80897;
-                */
                 n = prime_1 * prime_2;
                 
                 fain = (prime_1 - 1) * (prime_2 - 1);
-                //Console.WriteLine("The result of Euler function is " + fain.ToString());
+                
                 if (GCD(17, fain) == 1)
                 {
-                    //Console.WriteLine("The result of GCD(fain, 17) == 1.");
+                    
                     d = ext_gcd(17, fain);
                     this.public_key.Text = "(" + fain.ToString() + "," + "17" + ")";
                     this.private_key.Text = "(" + fain.ToString() + "," + d.ToString() + ")";
-                    //this.public_key.Text = fain.ToString();
-                    //this.private_key.Text = d.ToString();
-                    //this.private_key.Text = "123";
-                    //Console.WriteLine("The num n is " + n.ToString());
-
-                    //Console.WriteLine("The key d is " + d.ToString());
                     
-                    //Console.WriteLine("The cleartext is 32655, and the corresponding cipertext is " + cipertext.ToString());
-                    
-                    //Console.WriteLine("The cipertext is "+ cipertext.ToString() + " and the corresponding cleartext is " + cleartext.ToString() + ".");
                     break;
                 }
 
             }
 
-            //StringBuilder strShp = new StringBuilder(20480);
-
-            return_string(strShp);
+            return_string(strShp, ts_result, mr_result);
             StringBuilder prime1_Shp = new StringBuilder("The random_prime_1 is " + prime_1.ToString() + ".\n");
             StringBuilder prime2_Shp = new StringBuilder("The random_prime_2 is " + prime_2.ToString() + ".\n");
             strShp.Append(prime1_Shp);
             strShp.Append(prime2_Shp);
-            //ConsoleManager.Show();
-            //Console.Write(strShp);
+
 
         }
         public MainWindow()
         {
-            
+            pc_buffer.PassValuesEvent += new process_buffer.PassValuesHandler(ReceiveValues);
             InitializeComponent();
             
+        }
+        private void ReceiveValues(object sender, int e)
+        {
+            if (e == 1)
+            {
+                ts_buffer.show_buffer.Text = ts_result.ToString();
+                ts_buffer.Show();
+            }
+            else if(e == 2)
+            {
+                mr_buffer.show_buffer.Text = mr_result.ToString();
+                mr_buffer.Show();
+            }
+            else if(e == 3)
+            {
+                pc_buffer.prime_1.Content = prime_1.ToString();
+                pc_buffer.prime_2.Content = prime_2.ToString();
+
+            }
         }
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -115,8 +123,11 @@ namespace Rsa_Interface
 
         private void show_RS_Buffer_button_Click(object sender, RoutedEventArgs e)
         {
-            RS_Buffer.result_buffer.Text = strShp.ToString();
-            RS_Buffer.Show();
+            //RS_Buffer.result_buffer.Text = strShp.ToString();
+            mr_buffer.show_buffer.Text = mr_result.ToString();
+            ts_buffer.show_buffer.Text = ts_result.ToString();
+            //RS_Buffer.Show();
+            pc_buffer.Show();
         }
 
         private void sign_button_Click(object sender, RoutedEventArgs e)
